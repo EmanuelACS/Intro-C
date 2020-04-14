@@ -5,16 +5,16 @@
 int main() 
 {
     int i = 100;
-    while (i < 200)
+    while (i)
     {
-        if (i%3 && i%4)
+        if (i%3==0 && i%4==0)
         {
             printf("%d is the first number over 100 that is divisible by 3 AND 4!\n", i);
             break;
-        } else if (i%3)
+        } else if (i%3 == 0)
         {
             printf("%d is divisible by 3, but not by 4\n", i);
-        } else if (i%4)
+        } else if (i%4 == 0)
         {
             printf("%d is divisible by 4, but not by 3\n", i);
         } else 

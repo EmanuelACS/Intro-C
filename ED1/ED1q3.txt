@@ -1,3 +1,6 @@
+There was also a semantic error in the above program. A semantic error is one that causes your program to do something other than what was intended. 
+(See page 47 for more information.) What is the semantic error in the above program
+
 Instead of having:
     total_people = adults + kids;
 The program ran: 

@@ -1,3 +1,8 @@
 1. Based on the material in chapter 1 or other sources of information, 
 what feature of C sounds most exciting to you? What aspects worry you? 
 Why? (There is no "right" answer to this question. Just explain your perspective in 2-4 sentences.)
+
+The dynamic memory allocation that c offers seems to create many new options that you wouldn't have in other programming
+languages like Java or C# which have automatic memory allocation, and I'm excited to learn how to use this feature. However,
+this is also what worries me, as it seems much harder to debug than other code, and much easier to make mistakes especially 
+when dealing with arrays'. 
