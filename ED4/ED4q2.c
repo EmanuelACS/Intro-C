@@ -20,19 +20,13 @@ int get_int(void)
 {
     int input;
     char ch;
-    char str = "";
     while (scanf("%d", &input) != 1)
     {
         while ((ch = getchar()) == (isspace(ch)))
         {
             putchar(ch);
         }
-        if ((ch != isspace(ch)))
-        {
-            str += ch;
-        }
-        printf("%c is not an integer\n", str);
-        str = "";
+        printf("%c is not an integer\n", ch);
     }
     return input;
 }

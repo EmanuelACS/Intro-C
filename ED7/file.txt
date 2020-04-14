@@ -1,0 +1,7 @@
+For the purpose of this assignment a word is defined to be any string of letters
+ or numbers not separated by spaces or punctuation. For example, "hello" and "321"
+ are each a single word, but "555-1212" and "C1A 4P3" are each two words.
+ Another way to look at this is that you are inside a word if the currently character
+ is an alphanumeric. You are between words if the character is not an alphanumeric. 
+
+Then: Modify your answer to question 2, above. Instead of reading data from the keyboard, get the data from a file. Ask the user for the filename.
