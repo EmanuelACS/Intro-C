@@ -2,14 +2,15 @@
 
 #include <stdio.h>
 
-int main()
+int main(void)
 {
-    char userInput[30];
+    char user_input[30];
     printf("Please enter your name: ");
-    scanf("%s", userInput);
+    scanf("%s", user_input);
     // In a field that is 10 columns wide, mark the beginning and end of the field with / character
-    printf("/%10s/\n", userInput);
+    printf("/%10s/\n", user_input);
     // Shows only the first 3 characters
-    printf("/%.3s/", userInput);
+    printf("/%.3s/\n", user_input);
+
     return 0;
 }

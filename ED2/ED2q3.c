@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main(void)
 {
     double num = 1234.56789;
     // With exactly two decimal places is 

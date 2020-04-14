@@ -13,6 +13,7 @@ int main(void)
         scanf("%lf", &arr[i]);
     }
     get_num(arr);
+    
     return 0;
 }
 

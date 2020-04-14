@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main(void)
 {
     char ch;
     printf("Please enter a, b or anything else: ");
@@ -19,7 +19,7 @@ int main()
             val = 26;
             printf("passed by default!\n");
     }
-    printf("%d", val);
+    printf("%d\n", val);
     return 0;
 }
 

@@ -30,9 +30,6 @@ int main(void)
 
     printf("Bye bye!\n");
 
-    /* These next 3 lines are helpful if your program doesn't pause to let you
-      see the output. (Not required.)
-   */
     printf("Press Enter to end the program.\n");
     fflush(stdin);
     getchar();
@@ -43,18 +40,6 @@ int main(void)
 int menu(void)
 {
     int option;
-
-    /* Write printf() statements to make the following menu appear on the screen:
-       
-      Learn more about me! Please select from the menu.
- 
-      1. Learn the name of my favourite show.
-      2. Learn the first line of my favourite song.
- 
-      0. Quit this program.
- 
-      Please enter your choice:
-   */
 
     printf("Learn more about me! Please select from the menu.\n\n");
     printf("1. Learn the name of my favourite show.\n");

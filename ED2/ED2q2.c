@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-int main()
+int main(void)
 {
-    int userInput;
+    int user_input;
     printf("Enter an integer: ");
-    scanf("%d", &userInput);  
+    scanf("%d", &user_input);  
 
-    char character = userInput;
-    printf("ASCII code %d corresponds to the character %c.", userInput, character);   
+    char character = user_input;
+    printf("ASCII code %d corresponds to the character %c\n", user_input, character);   
 
     return 0;
 }

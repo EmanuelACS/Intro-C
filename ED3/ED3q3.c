@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-int main() 
+int main(void) 
 {
     int i = 100;
     while (i)

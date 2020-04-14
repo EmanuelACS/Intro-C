@@ -12,5 +12,5 @@ int main(void)
 
 In the above program, this statement: yaks[SIZE] = oxen[SIZE] is invalid. Why is that statement invalid?
 
-First of all, since SIZE is 5, doing yaks[5] = oxen[5] is trying to assign the 6th element of the oxen array
-to the 6th element of the yaks array. Both arrays only have 5 slots allocated, therefore, it is out of range for both.
+Since SIZE is 5, doing yaks[5] = oxen[5] is trying to assign the 6th element of the oxen array to the 6th
+element of the yaks array. Both arrays only have 5 slots allocated, therefore, it is out of range for both.

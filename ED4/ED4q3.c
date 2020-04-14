@@ -11,15 +11,15 @@ int main(void)
     printf("\nif my guess is lower or a y if my guess is correct.\n");
     printf("Uh...is your number %d?\n", guess);
     
-    char userInput;
-	while ((userInput = getchar()) != 'y')
+    char user_input;
+	while ((user_input = getchar()) != 'y')
 	{
 		while (getchar() != '\n');
-		if (userInput == 'h')
+		if (user_input == 'h')
 		{
             max = guess;
 		}
-		else if (userInput == 'l')
+		else if (user_input == 'l')
 		{
             min = guess;
 		}
@@ -32,5 +32,6 @@ int main(void)
 		}
 	}
 	printf("I knew I could do it!\n");
+	
 	return 0;
 }

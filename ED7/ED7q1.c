@@ -7,5 +7,6 @@ int main(void)
     fprintf(mfl, "Written using fprintf!\n");
     fprintf(mfl, "And an extra line too!");  
     fclose(mfl); 
+    
     return 0;
 }
