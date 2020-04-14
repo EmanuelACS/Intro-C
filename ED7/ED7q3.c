@@ -11,8 +11,11 @@ int main(void)
     int word = 0;
     int inword = 0;
 
-    FILE *mfile;  
-    mfile = fopen("file.txt", "r");
+    FILE *mfile; 
+    char file_name[100];
+    printf("Please enter the name of your file: \n");
+    gets(file_name);
+    mfile = fopen(file_name, "r");
 
     // Reads to EOF
     while ((ch = fgetc(mfile)) != EOF)

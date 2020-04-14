@@ -1,0 +1,23 @@
+What is the difference between local and global (extern) variables?
+
+Local variables are declared inside a function, and have a scope limited to that function.
+They can only be accessed by the statements inside the function in which they are declared.
+They are created when the function is entered and destroyed when it is exited.
+Whereas global variables are declared outside of any function, have a scope in the whole program,
+can be accessed by any statements within the program, and are never flushed until program is 
+done executing.
+
+
+
+Describe situations in which you would use each type of variable.
+
+You would use global variables when multiple functions would need access to them,
+whereas you would use local variables when they are used within a single function.
+
+
+
+Why do most programmers try to avoid using global variables?
+
+Because they can be altered by any part of the code, making it hard to remember the reason in changed.
+It makes testing programs harder, fills up the program's namespace and it is much easier to have more
+subtle bugs because of them.
