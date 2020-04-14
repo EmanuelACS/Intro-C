@@ -1,0 +1,16 @@
+/* nonvalid array assignment */
+#define SIZE 5
+int main(void)
+{
+    int oxen[SIZE] = {5,3,2,8};    /* ok here      */
+    int yaks[SIZE];
+ 
+    yaks = oxen;                   /* not allowed  */
+    yaks[SIZE] = oxen[SIZE];       /* out of range */
+    yaks[SIZE] = {5,3,2,8};        /* doesn't work */
+}
+
+In the above program, this statement: yaks[SIZE] = oxen[SIZE] is invalid. Why is that statement invalid?
+
+First of all, since SIZE is 5, doing yaks[5] = oxen[5] is trying to assign the 6th element of the oxen array
+to the 6th element of the yaks array. Both arrays only have 5 slots allocated, therefore, it is out of range for both.
