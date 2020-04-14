@@ -1,0 +1,6 @@
+Instead of having:
+    total_people = adults + kids;
+The program ran: 
+    total_people = adults - kids;
+(which is not what was intended for it)
+

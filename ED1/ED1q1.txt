@@ -1,0 +1,3 @@
+1. Based on the material in chapter 1 or other sources of information, 
+what feature of C sounds most exciting to you? What aspects worry you? 
+Why? (There is no "right" answer to this question. Just explain your perspective in 2-4 sentences.)
