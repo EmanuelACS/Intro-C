@@ -1,13 +1,14 @@
-//    Enter an integer:66
-//  ASCII code 66 corresponds to the character B.
-
 #include <stdio.h>
 
 int main()
 {
-    double num1 = 1234.56789;
-    float num2 = 1234.56789;
-    printf("%f\n", num1); // 1234.567890
-    printf("%f\n", num2); // 1234.567891
+    int userInput;
+    printf("Enter an integer: ");
+    scanf("%d", &userInput);  
+
+    char character = userInput;
+    printf("ASCII code %d corresponds to the character %c.", userInput, character);   
+
+    return 0;
 }
 

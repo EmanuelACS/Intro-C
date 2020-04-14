@@ -4,7 +4,7 @@ int main()
 {
     double num1 = 1234.56789;
     float num2 = 1234.56789;
-    printf("%f\n", num1); // 1234.567890
+    printf("%lf\n", num1); // 1234.567890
     printf("%f\n", num2); // 1234.567891
     return 0;
 }
