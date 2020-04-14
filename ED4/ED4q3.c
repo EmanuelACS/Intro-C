@@ -25,6 +25,11 @@ int main(void)
 		}
 		guess = (min + max) / 2;
 		printf("Well, then, is it %d?\n", guess);
+		// If user's number is 100, increment guess after trying 99
+		if (guess == 99)
+		{
+		    guess++;
+		}
 	}
 	printf("I knew I could do it!\n");
 	return 0;
