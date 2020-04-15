@@ -68,9 +68,9 @@ int menu(void)
     printf("0. Quit this program.\n\n");
     printf("Please enter your choice: ");
 
-    while ((scanf(" %d", &option_text) != 1) /* non-numeric input */
-           || (option_text[0] < 0)           /* number too small */
-           || (option_text[0] > 5))          /* number too large */
+    while ((scanf(" %d%*c", &option_text) != 1) /* non-numeric input */
+           || (option_text[0] < 0)              /* number too small */
+           || (option_text[0] > 5))             /* number too large */
     {
         // fflush(stdin) should not be used, use fgets() instead
         fgets(option_text, sizeof(option_text), stdin);
@@ -82,9 +82,13 @@ int menu(void)
 
 int input_file(void) // WORKS
 {
-    input_file_name[80];
+    //char buffer[80];
     printf("Please enter the name of your input file: \n");
-    scanf("%s", &input_file_name);
+    fgets(input_file_name, 80, stdin);
+    printf("Your file is: %s", input_file_name);
+    input_file_name[strcspn(input_file_name, "\n")] = 0;
+
+    //strcpy(input_file_name, buffer);
 
     return 1;
 }
@@ -93,7 +97,8 @@ int output_file(void) // WORKS!
 {
     output_file_name[80];
     printf("Please enter the name of your output file: \n");
-    scanf("%s", &output_file_name);
+    fgets(output_file_name, 80, stdin);
+    output_file_name[strcspn(output_file_name, "\n")] = 0;
 
     return 1;
 }
@@ -159,7 +164,7 @@ void preview_file(int name_set)
     else
     {
         if (name_set)
-            printf("ERROR: Could not find input file\n\n");
+            printf("ERROR: Could not find input file/%s/\n\n", input_file_name);
         else
             printf("ERROR: You have not yet provided the name for the input file.\n\n");
     }
@@ -169,7 +174,9 @@ void shift_char(void)
 {
     char c[10];
     fgets(c, 10, stdin);
-    fgets(c, 10, stdin);
+    c[strcspn(c, "\n")] = 0;
     chars_to_shift = atoi(c);
-    printf("Num: %d\n", chars_to_shift);
+    printf("You : %d\n", chars_to_shift);
 }
+
+//buf[strcspn(buf, "\n")] = 0;
