@@ -17,7 +17,7 @@ int chars_to_shift;        // Keep track of how many chars to shift
 
 int input_file(void);
 int output_file(void);
-int shift_chars(void);
+void shift_char(void);
 void encode_text(void);
 void preview_file(int);
 int menu(void);
@@ -26,6 +26,7 @@ int main(void)
 {
     int choice = menu(); /* get user's first selection */
     int set_input_file = 0;
+    int set_output_file = 0;
 
     while (choice != QUIT)
     {
@@ -33,13 +34,12 @@ int main(void)
         {
         case INPUT_FILE:
             set_input_file = input_file();
-            printf("%s is my file!\n\n", input_file_name);
             break;
         case OUTPUT_FILE:
-            output_file();
+            set_output_file = output_file();
             break;
         case SHIFT_CHARS:
-            shift_chars();
+            shift_char();
             break;
         case ENCODE_TEXT:
             encode_text();
@@ -80,7 +80,7 @@ int menu(void)
     return (int)option_text[0];
 }
 
-int input_file(void) // WORKS!
+int input_file(void) // WORKS
 {
     input_file_name[80];
     printf("Please enter the name of your input file: \n");
@@ -96,14 +96,6 @@ int output_file(void) // WORKS!
     scanf("%s", &output_file_name);
 
     return 1;
-}
-
-int shift_chars(void)
-{
-    printf("Please enter the number of characters data to be shifted: ");
-    scanf("%d", chars_to_shift);
-
-    return 0;
 }
 
 void encode_text(void) // not yet encoding anything!
@@ -137,7 +129,7 @@ void encode_text(void) // not yet encoding anything!
         }
         fclose(out_file);
         printf("\nYour file has finished encoding!\n\n");
-    } 
+    }
     else
         printf("ERROR: Could not fine input file\n\n");
 }
@@ -171,4 +163,13 @@ void preview_file(int name_set)
         else
             printf("ERROR: You have not yet provided the name for the input file.\n\n");
     }
+}
+
+void shift_char(void)
+{
+    char c[10];
+    fgets(c, 10, stdin);
+    fgets(c, 10, stdin);
+    chars_to_shift = atoi(c);
+    printf("Num: %d\n", chars_to_shift);
 }
