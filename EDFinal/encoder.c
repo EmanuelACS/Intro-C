@@ -11,15 +11,15 @@
 #define PREVIEW_INPUT 5 // Display File
 #define QUIT 0          // Quit
 
-char input_file_name[80];  // Keep track of file to be encoded
-char output_file_name[80]; // Keep track of output file
+//char input_file_name[80];  // Keep track of file to be encoded
+//char output_file_name[80]; // Keep track of output file
 int chars_to_shift;        // Keep track of how many chars to shift
 
-int input_file(void);
-int output_file(void);
+int input_file(char *);
+int output_file(char *);
 int shift_char(void);
-void encode_text(void);
-void preview_file(int);
+void encode_text(char *, char *);
+void preview_file(int, char *);
 int menu(void);
 
 int main(void)
@@ -27,25 +27,27 @@ int main(void)
     int choice = menu(); /* get user's first selection */
     int set_input_file = 0;
     int set_output_file = 0;
+    char file_name[80];
+    char output_file_n[80];
 
     while (choice != QUIT)
     {
         switch (choice)
         {
         case INPUT_FILE:
-            set_input_file = input_file();
+            set_input_file = input_file(file_name);
             break;
         case OUTPUT_FILE:
-            set_output_file = output_file();
+            set_output_file = output_file(output_file_n);
             break;
         case SHIFT_CHARS:
             shift_char();
             break;
         case ENCODE_TEXT:
-            encode_text();
+            encode_text(file_name, output_file_n);
             break;
         case PREVIEW_INPUT:
-            preview_file(set_input_file);
+            preview_file(set_input_file, file_name);
             break;
         default:
             printf("Oops! An invalid choice slipped through. ");
@@ -81,27 +83,26 @@ int menu(void)
     return (int)option_text[0];
 }
 
-int input_file(void) 
+int input_file(char *file_name)
 {
     printf("Please enter the name of your input file: \n");
-    fgets(input_file_name, 80, stdin);
-    printf("Your file is: %s", input_file_name);
-    input_file_name[strcspn(input_file_name, "\n")] = 0;
+    fgets(file_name, 80, stdin);
+    printf("Your file is: %s", file_name);
+    file_name[strcspn(file_name, "\n")] = 0;
 
     return 1;
 }
 
-int output_file(void) 
+int output_file(char *output_file_n)
 {
-    output_file_name[80];
     printf("Please enter the name of your output file: \n");
-    fgets(output_file_name, 80, stdin);
-    output_file_name[strcspn(output_file_name, "\n")] = 0;
+    fgets(output_file_n, 80, stdin);
+    output_file_n[strcspn(output_file_n, "\n")] = 0;
 
     return 1;
 }
 
-int shift_char(void) 
+int shift_char(void)
 {
     char c[10];
     printf("Enter the amount to be shifted: ");
@@ -113,7 +114,7 @@ int shift_char(void)
     return atoi(c);
 }
 
-void encode_text(void)
+void encode_text(char *file_name, char *output_file_n)
 {
     FILE *in_file;
     FILE *out_file;
@@ -121,10 +122,10 @@ void encode_text(void)
     char ch[128];
     char a[128][128];
 
-    if (access(input_file_name, F_OK) != -1)
+    if (access(file_name, F_OK) != -1)
     {
-        in_file = fopen(input_file_name, "r");
-        out_file = fopen(output_file_name, "w+");
+        in_file = fopen(file_name, "r");
+        out_file = fopen(output_file_n, "w+");
         int ascii_lower, ascii_higher;
         int shift_n = (int)(chars_to_shift);
         while (!feof(in_file))
@@ -170,16 +171,15 @@ void encode_text(void)
         printf("\nYour file has finished encoding!\n\n");
     }
     else
-        printf("ERROR: Could not find input file \"%s\"\n\n", input_file_name);
+        printf("ERROR: Could not find input file \"%s\"\n\n", file_name);
 }
 
-void preview_file(int name_set) 
+void preview_file(int name_set, char *file_name)
 {
     FILE *my_file;
-
-    if (access(input_file_name, F_OK) != -1)
+    if (access(file_name, F_OK) != -1)
     {
-        my_file = fopen(input_file_name, "r");
+        my_file = fopen(file_name, "r");
         char line[128];
         int lines_printed = 0;
 
@@ -198,7 +198,7 @@ void preview_file(int name_set)
     else
     {
         if (name_set)
-            printf("ERROR: Could not find input file \"%s\"\n\n", input_file_name);
+            printf("ERROR: Could not find input file \"%s\"\n\n", file_name);
         else
             printf("ERROR: You have not yet provided the name for the input file.\n\n");
     }
