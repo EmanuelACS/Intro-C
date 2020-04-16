@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "encoder.h"    
+#include "encoder.h"
 
 #define INPUT_FILE 1    // Enter name of input file
 #define OUTPUT_FILE 2   // Enter name of output file
@@ -35,14 +35,14 @@ int main(void)
             shift_x = shift_char();
             break;
         case ENCODE_TEXT:
-            encode_text(file_name, output_file_n, shift_x);
+            encode_text(file_name, output_file_n, shift_x, set_input_file);
             break;
         case PREVIEW_INPUT:
             preview_file(set_input_file, file_name);
             break;
         default:
-            printf("Oops! An invalid choice slipped through. ");
-            printf("Please try again.\n");
+            printf("FATAL ERROR");
+            printf("This should never appear\n");
         }
         choice = menu(file_name, output_file_n, shift_x, set_input_file, set_output_file, shift_x); /* get user's subsequent selections */
     }
@@ -85,14 +85,14 @@ int menu(char *file_name, char *output_file_n, int shift_x, int set_input_file, 
         printf("That selection isn't valid. Please try again.\n");
         printf("Your choice:  ");
     }
-    return (int) option_text[0];
+    return (int)option_text[0];
 }
 
 int input_file(char *file_name)
 {
     printf("Please enter the name of your input file: \n");
     fgets(file_name, 80, stdin);
-    printf("Your file is: %s", file_name);
+    printf("\n");
     file_name[strcspn(file_name, "\n")] = 0;
 
     return 1;
@@ -102,6 +102,7 @@ int output_file(char *output_file_n)
 {
     printf("Please enter the name of your output file: \n");
     fgets(output_file_n, 80, stdin);
+    printf("\n");
     output_file_n[strcspn(output_file_n, "\n")] = 0;
 
     return 1;
@@ -112,12 +113,13 @@ int shift_char(void)
     char c[10];
     printf("Enter the amount to be shifted: ");
     fgets(c, 10, stdin);
+    printf("\n");
     c[strcspn(c, "\n")] = 0;
 
     return atoi(c);
 }
 
-void encode_text(char *file_name, char *output_file_n, int shift_chars)
+void encode_text(char *file_name, char *output_file_n, int shift_chars, int name_set)
 {
     FILE *in_file, *out_file;
     int i = 0, k = 0;
@@ -170,22 +172,36 @@ void encode_text(char *file_name, char *output_file_n, int shift_chars)
         }
         fclose(in_file);
         fclose(out_file);
-        printf("\nYour file has finished encoding!\n\n");
+        printf("\nYour file was successfully encoded!\n");
+        garbage_collection();
     }
     else
-        printf("ERROR: Could not find input file \"%s\"\n\n", file_name);
+    {
+        if (name_set)
+        {
+            printf("\nERROR: Could not find input file \"%s\".\n", file_name);
+            garbage_collection();
+        }
+        else
+        {
+            printf("\nERROR: You have not yet provided the name for the input file.\n");
+            garbage_collection();
+        }
+    }
 }
 
 void preview_file(int name_set, char *file_name)
 {
     FILE *my_file;
+    char garbage[100];
+
     if (access(file_name, F_OK) != -1)
     {
         my_file = fopen(file_name, "r");
         char line[128];
         int lines_printed = 0;
-
-        printf("<<<<<<< Your file >>>>>>>\n");
+        printf("Reading file \"%s\"\n", file_name);
+        printf("<<<<<<< START >>>>>>>\n");
         while (!feof(my_file))
         {
             if (fgets(line, sizeof(line), my_file) && (lines_printed < 10))
@@ -194,16 +210,31 @@ void preview_file(int name_set, char *file_name)
                 lines_printed++;
             }
         }
-        printf("\n");
+        printf("<<<<<<<< END >>>>>>>>\n");
+        garbage_collection();
         fclose(my_file);
     }
     else
     {
         if (name_set)
-            printf("ERROR: Could not find input file \"%s\"\n\n", file_name);
+        {
+            printf("\nERROR: Could not find input file \"%s\".\n", file_name);
+            garbage_collection();
+        }
         else
-            printf("ERROR: You have not yet provided the name for the input file.\n\n");
+        {
+            printf("\nERROR: You have not yet provided the name for the input file.\n");
+            garbage_collection();
+        }
     }
+}
+
+void garbage_collection(void)
+{
+    printf("\nHit enter to continue: ");
+    char garbage[1024];
+    fgets(garbage, 100, stdin);
+    printf("\n");
 }
 
 //buf[strcspn(buf, "\n")] = 0;
