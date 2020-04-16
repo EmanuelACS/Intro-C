@@ -11,14 +11,10 @@
 #define PREVIEW_INPUT 5 // Display File
 #define QUIT 0          // Quit
 
-//char input_file_name[80];  // Keep track of file to be encoded
-//char output_file_name[80]; // Keep track of output file
-int chars_to_shift;        // Keep track of how many chars to shift
-
 int input_file(char *);
 int output_file(char *);
 int shift_char(void);
-void encode_text(char *, char *);
+void encode_text(char *, char *, int);
 void preview_file(int, char *);
 int menu(void);
 
@@ -29,6 +25,7 @@ int main(void)
     int set_output_file = 0;
     char file_name[80];
     char output_file_n[80];
+    int shift_x = 0;
 
     while (choice != QUIT)
     {
@@ -41,10 +38,10 @@ int main(void)
             set_output_file = output_file(output_file_n);
             break;
         case SHIFT_CHARS:
-            shift_char();
+            shift_x = shift_char();
             break;
         case ENCODE_TEXT:
-            encode_text(file_name, output_file_n);
+            encode_text(file_name, output_file_n, shift_x);
             break;
         case PREVIEW_INPUT:
             preview_file(set_input_file, file_name);
@@ -108,13 +105,11 @@ int shift_char(void)
     printf("Enter the amount to be shifted: ");
     fgets(c, 10, stdin);
     c[strcspn(c, "\n")] = 0;
-    chars_to_shift = atoi(c);
-    printf("You : %d\n", chars_to_shift);
 
     return atoi(c);
 }
 
-void encode_text(char *file_name, char *output_file_n)
+void encode_text(char *file_name, char *output_file_n, int shift_chars)
 {
     FILE *in_file;
     FILE *out_file;
@@ -127,7 +122,7 @@ void encode_text(char *file_name, char *output_file_n)
         in_file = fopen(file_name, "r");
         out_file = fopen(output_file_n, "w+");
         int ascii_lower, ascii_higher;
-        int shift_n = (int)(chars_to_shift);
+        int shift_n = (int)(shift_chars);
         while (!feof(in_file))
         {
             fscanf(in_file, "%[^\n]%*c", &ch[i]);
@@ -183,7 +178,7 @@ void preview_file(int name_set, char *file_name)
         char line[128];
         int lines_printed = 0;
 
-        printf("<<<<< Your file >>>>>\n");
+        printf("<<<<<<< Your file >>>>>>>\n");
         while (!feof(my_file))
         {
             if (fgets(line, sizeof(line), my_file) && (lines_printed < 10))
