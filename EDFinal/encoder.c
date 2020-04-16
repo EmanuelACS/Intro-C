@@ -8,7 +8,7 @@
 #define OUTPUT_FILE 2   // Enter name of output file
 #define SHIFT_CHARS 3   // Enter number of characters data should be shifted
 #define ENCODE_TEXT 4   // Encode the text
-#define PREVIEW_INPUT 5 //Display File
+#define PREVIEW_INPUT 5 // Display File
 #define QUIT 0          // Quit
 
 char input_file_name[80];  // Keep track of file to be encoded
@@ -81,7 +81,7 @@ int menu(void)
     return (int)option_text[0];
 }
 
-int input_file(void) // WORKS
+int input_file(void) 
 {
     printf("Please enter the name of your input file: \n");
     fgets(input_file_name, 80, stdin);
@@ -91,7 +91,7 @@ int input_file(void) // WORKS
     return 1;
 }
 
-int output_file(void) // WORKS!
+int output_file(void) 
 {
     output_file_name[80];
     printf("Please enter the name of your output file: \n");
@@ -101,9 +101,10 @@ int output_file(void) // WORKS!
     return 1;
 }
 
-int shift_char(void) //WORKS!
+int shift_char(void) 
 {
     char c[10];
+    printf("Enter the amount to be shifted: ");
     fgets(c, 10, stdin);
     c[strcspn(c, "\n")] = 0;
     chars_to_shift = atoi(c);
@@ -112,15 +113,13 @@ int shift_char(void) //WORKS!
     return atoi(c);
 }
 
-void encode_text(void) // not yet encoding anything!
+void encode_text(void)
 {
     FILE *in_file;
     FILE *out_file;
     int i = 0, k = 0;
-    int j;
     char ch[128];
     char a[128][128];
-    char new[] = "hi";
 
     if (access(input_file_name, F_OK) != -1)
     {
@@ -128,15 +127,11 @@ void encode_text(void) // not yet encoding anything!
         out_file = fopen(output_file_name, "w+");
         int ascii_lower, ascii_higher;
         int shift_n = (int)(chars_to_shift);
-        //printf("Shift: /%d/\n", shift_n);
         while (!feof(in_file))
         {
             fscanf(in_file, "%[^\n]%*c", &ch[i]);
-            //printf("%s\n", &ch[i]);
             strcpy(a[i], &ch[i]);
-            int count = (printf("%s\n", a[i]) - 1);
-            //printf("%c, %d", a[i][0], count);
-            //printf("\n%c", a[i][0]);
+            int count = strlen(a[i]);
 
             for (k = 0; k < count; k++)
             {
@@ -150,7 +145,6 @@ void encode_text(void) // not yet encoding anything!
                     shift_n = 26 - (-shift_n);
                     ascii_lower = (((a[i][k] - 97) + shift_n) % 26) + 97;
                     ascii_higher = (((a[i][k] - 65) + shift_n) % 26) + 65;
-                    //printf("Shifted: %d, Low: /%c/\n", shift_n, ascii_lower);
                 }
                 if (isalpha(a[i][k]))
                 {
@@ -179,7 +173,7 @@ void encode_text(void) // not yet encoding anything!
         printf("ERROR: Could not find input file \"%s\"\n\n", input_file_name);
 }
 
-void preview_file(int name_set) // WORKS!!
+void preview_file(int name_set) 
 {
     FILE *my_file;
 

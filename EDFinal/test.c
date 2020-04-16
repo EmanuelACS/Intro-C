@@ -8,7 +8,7 @@ int main(void)
 {
     char txt3[] = "This is my third bad cold in 2008.";
     char txt[] = "Wklv lv pb wklug edg frog lq 2008.";
-    int shift_n = -3;
+    int shift_n = -29;
     int ascii_lower, ascii_higher;
 
     for (int i = 0; i < sizeof(txt); i++)
