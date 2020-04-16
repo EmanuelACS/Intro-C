@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include "encoder.h"    
 
 #define INPUT_FILE 1    // Enter name of input file
 #define OUTPUT_FILE 2   // Enter name of output file
@@ -10,13 +11,6 @@
 #define ENCODE_TEXT 4   // Encode the text
 #define PREVIEW_INPUT 5 // Display File
 #define QUIT 0          // Quit
-
-int input_file(char *);
-int output_file(char *);
-int shift_char(void);
-void encode_text(char *, char *, int);
-void preview_file(int, char *);
-int menu(char *, char *, int, int, int, int);
 
 int main(void)
 {
@@ -69,11 +63,11 @@ int menu(char *file_name, char *output_file_n, int shift_x, int set_input_file, 
         printf("2. Enter name of output file (currently not set)\n");
     if (shift_set != 0)
         if (shift_set < 0)
-            printf("3. Enter number of characters data should be shifted (currently %d)\n", shift_set);
+            printf("3. Enter number of characters data to be shifted (currently %d)\n", shift_set);
         else
-            printf("3. Enter number of characters data should be shifted (currently +%d)\n", shift_set);
+            printf("3. Enter number of characters data to be shifted (currently +%d)\n", shift_set);
     else
-        printf("3. Enter number of characters data should be shifted (currently not set)\n");
+        printf("3. Enter number of characters data to be shifted (currently not set)\n");
     printf("4. Encode text\n");
     printf("5. View your selected file\n\n");
     printf("0. Quit this program.\n\n");
@@ -85,11 +79,13 @@ int menu(char *file_name, char *output_file_n, int shift_x, int set_input_file, 
            || (option_text[0] < 0)              /* number too small */
            || (option_text[0] > 5))             /* number too large */
     {
-        fgets(option_text, sizeof(option_text), stdin);
+        // Only collect if more than one char was input by user
+        if (strlen(option_text) != 1)
+            fgets(option_text, sizeof(option_text), stdin);
         printf("That selection isn't valid. Please try again.\n");
         printf("Your choice:  ");
     }
-    return (int)option_text[0];
+    return (int) option_text[0];
 }
 
 int input_file(char *file_name)
@@ -123,8 +119,7 @@ int shift_char(void)
 
 void encode_text(char *file_name, char *output_file_n, int shift_chars)
 {
-    FILE *in_file;
-    FILE *out_file;
+    FILE *in_file, *out_file;
     int i = 0, k = 0;
     char ch[128];
     char a[128][128];
@@ -139,9 +134,9 @@ void encode_text(char *file_name, char *output_file_n, int shift_chars)
         {
             fscanf(in_file, "%[^\n]%*c", &ch[i]);
             strcpy(a[i], &ch[i]);
-            int count = strlen(a[i]);
+            int string_count = strlen(a[i]);
 
-            for (k = 0; k < count; k++)
+            for (k = 0; k < string_count; k++)
             {
                 if (shift_n > 0)
                 {
@@ -171,7 +166,7 @@ void encode_text(char *file_name, char *output_file_n, int shift_chars)
                 }
             }
             fprintf(out_file, "\n");
-            ++i;
+            ++i; /* increment string index*/
         }
         fclose(in_file);
         fclose(out_file);
