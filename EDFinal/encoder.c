@@ -16,16 +16,16 @@ int output_file(char *);
 int shift_char(void);
 void encode_text(char *, char *, int);
 void preview_file(int, char *);
-int menu(void);
+int menu(char *, char *, int, int, int, int);
 
 int main(void)
 {
-    int choice = menu(); /* get user's first selection */
     int set_input_file = 0;
     int set_output_file = 0;
     char file_name[80];
     char output_file_n[80];
     int shift_x = 0;
+    int choice = menu(file_name, output_file_n, shift_x, set_input_file, set_output_file, shift_x); /* get user's first selection */
 
     while (choice != QUIT)
     {
@@ -50,18 +50,30 @@ int main(void)
             printf("Oops! An invalid choice slipped through. ");
             printf("Please try again.\n");
         }
-        choice = menu(); /* get user's subsequent selections */
+        choice = menu(file_name, output_file_n, shift_x, set_input_file, set_output_file, shift_x); /* get user's subsequent selections */
     }
 }
 
-int menu(void)
+int menu(char *file_name, char *output_file_n, int shift_x, int set_input_file, int set_output_file, int shift_set)
 {
     char option_text[80];
 
     printf("Text Encoder Service\n\n");
-    printf("1. Enter name of input file\n");
-    printf("2. Enter name of output file\n");
-    printf("3. Enter number of characters data should be shifted\n");
+    if (set_input_file)
+        printf("1. Enter name of input file (currently \"%s\")\n", file_name);
+    else
+        printf("1. Enter name of input file (currently not set)\n");
+    if (set_output_file)
+        printf("2. Enter name of output file (currently \"%s\")\n", output_file_n);
+    else
+        printf("2. Enter name of output file (currently not set)\n");
+    if (shift_set != 0)
+        if (shift_set < 0)
+            printf("3. Enter number of characters data should be shifted (currently %d)\n", shift_set);
+        else
+            printf("3. Enter number of characters data should be shifted (currently +%d)\n", shift_set);
+    else
+        printf("3. Enter number of characters data should be shifted (currently not set)\n");
     printf("4. Encode text\n");
     printf("5. View your selected file\n\n");
     printf("0. Quit this program.\n\n");
